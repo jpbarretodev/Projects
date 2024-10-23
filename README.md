@@ -16,6 +16,5 @@ Esse repositório foi criado para manter alguns projetos desenvolvidos por mim a
 <h2>Links de acesso a cada repositório</h2>
 <p>
 
-- Python
-<br>
-<a href="https://github.com/jpbarretodev/Projects/tree/main/python">
+- Python <br>
+<a href="https://github.com/jpbarretodev/Projects/tree/main/python">Acesse aqui</a>
