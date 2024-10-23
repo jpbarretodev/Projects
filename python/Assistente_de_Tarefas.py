@@ -27,7 +27,7 @@ class Tarefa:
     def visualizar_tarefa():
         if len(objetos) > 0:
             for i, objeto in enumerate(objetos):
-                return print(f"{i+1} - {objeto.nome}")
+                print(f"{i+1} - {objeto.nome}")
 
     @staticmethod
     def excluir_tarefa():
@@ -35,7 +35,7 @@ class Tarefa:
         Tarefa.visualizar_tarefa()
         escolha = int(input("Selecione o número da tarefa que deseja excluir.\nEscolha: "))
         if escolha != 0 and escolha <= len(objetos):
-            objetos.pop(escolha)
+            objetos.pop(escolha-1)
             return print("Tarefa apagada com sucesso.")
         else:
             return print("Falha ao excluir objeto!")
@@ -57,6 +57,7 @@ class Tarefa:
                 else:
                     objeto_unico.tempo = int(input("Insira o novo tempo para a tarefa: "))
                     return print("O tempo da tarefa foi alterado com sucesso!")
+                
     @staticmethod
     def verificacao_lista():
         if len(objetos) == 0:
@@ -71,7 +72,7 @@ class Tarefa:
 class Metodos:
 
     @staticmethod
-    def primeira_acesso(verificacao):
+    def primeira_acesso(verificacao):       #faz a verificação da lista para o primeiro acesso (ideal para usar depois com o .txt)
         if verificacao == False:
             escolha = int(input("Você não possui nenhuma tarefa\n1 - Adicionar tarefa\n0 - Fechar programa\nEscolha: "))
             while escolha != 1 and escolha != 0:
@@ -82,12 +83,29 @@ class Metodos:
                 elif escolha == 1:
                     nome, tempo = input("insira o nome da tarefa: "), int(input("Insira o tempo para realizar a tarefa: "))
                     Tarefa.adicionar_tarefa(Tarefa(nome, tempo))
+                    return main()
         else:
-            funcionalidade = int(input("Insira a opção desejada:\n1 - Adicionar tarefa\n2 - visualizar tarefas\n3 - Excluir tarefa\n4 - Editar tarefa\nEscolha: "))
-            return funcionalidade
-
-def main(funcionalide):
-    pass
-
-
-main(Metodos.primeira_acesso(Tarefa.verificacao_lista()))
+            funcionalidade = int(input("Insira a opção desejada:\n1 - Adicionar tarefa\n2 - visualizar tarefas\n3 - Excluir tarefa\n4 - Editar tarefa\n0 - Encerrar programa\nEscolha: "))
+            while funcionalidade < 0 and funcionalidade > 4:
+                funcionalidade = int(input("Opção inválida. Insira novamente\nEscolha: "))
+            else:
+                return funcionalidade           #retorna a escolha da funcionalidade pelo usuário
+            
+def main():
+    
+    while True:
+        funcionalidade_escolhida = Metodos.primeira_acesso(Tarefa.verificacao_lista())
+        if funcionalidade_escolhida == 1:
+            nome = input("Insira o nome da tarefa: ")
+            tempo = int(input("Insira o tempo para concluir a tarefa: "))
+            Tarefa.adicionar_tarefa(Tarefa(nome, tempo))
+        elif funcionalidade_escolhida == 2:
+            Tarefa.visualizar_tarefa()
+        elif funcionalidade_escolhida == 3:
+            Tarefa.excluir_tarefa()
+        elif funcionalidade_escolhida == 4:
+            Tarefa.editar_tarefa()
+        else:
+            print("Pograma encerrado!")
+            break
+main()
