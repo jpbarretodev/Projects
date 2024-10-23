@@ -44,7 +44,7 @@ class Tarefa:
     def editar_tarefa():
         print("Selecione a tarefa que deseja editar:\n")
         Tarefa.visualizar_tarefa()
-        verificacao = int(input("Escolha o número da tarefa:\nEscolha: "))
+        verificacao = int(input("Escolha o número da tarefa: "))
         if verificacao > 0 and verificacao <= len(objetos):
             escolha = int(input("O que você deseja alterar?\n1 - Nome\n2 - Tempo\nEscolha: "))
             while escolha != 1 and escolha != 2:
@@ -76,14 +76,14 @@ class Metodos:
         if verificacao == False:
             escolha = int(input("Você não possui nenhuma tarefa\n1 - Adicionar tarefa\n0 - Fechar programa\nEscolha: "))
             while escolha != 1 and escolha != 0:
-                escolha = int(input("Opção inválida. Por favor, insira novamente\nEscolha"))
+                escolha = int(input("Opção inválida. Por favor, insira novamente.\nEscolha: "))
             else:
                 if escolha == 0:
-                    return print("Programa encerrado")
+                    return 0
                 elif escolha == 1:
                     nome, tempo = input("insira o nome da tarefa: "), int(input("Insira o tempo para realizar a tarefa: "))
                     Tarefa.adicionar_tarefa(Tarefa(nome, tempo))
-                    return main()
+    
         else:
             funcionalidade = int(input("Insira a opção desejada:\n1 - Adicionar tarefa\n2 - visualizar tarefas\n3 - Excluir tarefa\n4 - Editar tarefa\n0 - Encerrar programa\nEscolha: "))
             while funcionalidade < 0 and funcionalidade > 4:
@@ -92,7 +92,7 @@ class Metodos:
                 return funcionalidade           #retorna a escolha da funcionalidade pelo usuário
             
 def main():
-    
+
     while True:
         funcionalidade_escolhida = Metodos.primeira_acesso(Tarefa.verificacao_lista())
         if funcionalidade_escolhida == 1:
@@ -105,7 +105,9 @@ def main():
             Tarefa.excluir_tarefa()
         elif funcionalidade_escolhida == 4:
             Tarefa.editar_tarefa()
-        else:
-            print("Pograma encerrado!")
+        elif funcionalidade_escolhida == 0:
+            print("Programa Encerrado")
             break
+        else:
+            pass
 main()
