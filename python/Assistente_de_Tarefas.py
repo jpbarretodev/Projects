@@ -27,7 +27,7 @@ class Tarefa:
     def visualizar_tarefa():
         if len(objetos) > 0:
             for i, objeto in enumerate(objetos):
-                print(f"{i+1} - {objeto.nome}")
+                print(f"{i+1} - {objeto.nome}: {objeto.tempo} horas")
 
     @staticmethod
     def excluir_tarefa():
@@ -50,7 +50,7 @@ class Tarefa:
             while escolha != 1 and escolha != 2:
                 escolha = int(input("Valor incorreto! Insira 1 para alterar o nome ou 2 para alterar o tempo\nEscolha: "))
             else:
-                objeto_unico = Tarefa.objeto_unico(escolha-1)
+                objeto_unico = Tarefa.objeto_unico(verificacao-1)
                 if escolha == 1:
                     objeto_unico.nome = input("Insira o novo nome: ")
                     return print("O nome da tarefa foi alterado com sucesso!")
