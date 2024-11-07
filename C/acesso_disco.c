@@ -1,14 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char *gerar_comando(char *comando, char *comando2) {
-    static char comando_completo[100];
+int *gerar_comando(char *comando, char *comando2) {
+    char comando_completo[100];
     snprintf(comando_completo, sizeof(comando_completo), "%s %s", comando, comando2);
-    return comando_completo;
+    system(comando_completo);
+    return 0;
 }
 
-char *criar_diretorio(char *nome) {
-    return gerar_comando("mkdir", nome);
+int criar_diretorio(char *nome) {
+    gerar_comando("mkdir", nome);
+    return 0;
 }
 
 int criar_arquivo(char *nome) {
@@ -34,20 +37,37 @@ int escrever_arquivo(char *nome_arquivo, char *frase) {
     return 0;
 }
 
+
+
 int main(void) {
-    char nome[100], frase[100];
-    printf("Digite o nome para criar o arquivo: ");
-    scanf("%99s", nome);
-    if(!criar_arquivo(nome)) {
-        printf("Arquivo criado\n");
+
+    char nome_dir[100], nome_arq[100], frase[100];
+    printf("\nAcessando o disco!\n\nPrimeiro, crie um diretorio!\n\nInsira o nome do diretorio: ");
+    scanf("%99s", nome_dir);
+
+    if(!criar_diretorio(nome_dir)) {
+        printf("Diretorio criado com sucesso!\nVamos abrir o diretorio sem alterar nada.\n\n");
+
+        if(!gerar_comando("cd", nome_dir)) {
+            printf("Diretorio aberto. Agora, vamos criar um arquivo de texto fora deste diretorio!\nDigite o nome do arquivo: ");
+            scanf("%99s", nome_arq);
+
+            if(!criar_arquivo(nome_arq)) {
+                printf("Arquivo criado! Agora, vamos escrever uma frase para esse arquivo de texto.\nA frase sera: 'ola,mundo!'.\n\nEscreva: ");
+                scanf("%99s", frase);
+
+                if(!escrever_arquivo(nome_arq, frase)) {
+                    printf("Frase criada, teste ok");
+                } else {
+                    printf("Nao foi possivel adicionar a frase.");
+                }
+            } else {
+                printf("Nao foi possivel criar o arquivo.");
+            }
+        } else {
+            printf("Nao foi possivel abrir o diretorio.");
+        }
     } else {
-        printf("Arquivo nao criado\n");
-    }
-    printf("Escreva uma frase para colocar no arquivo: ");
-    scanf("%99s", frase);
-    if(!escrever_arquivo(nome, frase)) {
-        printf("Dado armazenado\n");
-    } else {
-        printf("Falha ao armazenar o dado\n");
+        printf("Erro ao criar o diretorio");
     }
 }
