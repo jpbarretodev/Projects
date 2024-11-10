@@ -53,11 +53,11 @@ int main(void) {
             scanf("%99s", nome_arq);
 
             if(!criar_arquivo(nome_arq)) {
-                printf("Arquivo criado! Agora, vamos escrever uma frase para esse arquivo de texto.\nA frase sera: 'ola,mundo!'.\n\nEscreva: ");
+                printf("\nArquivo criado! Agora, vamos escrever uma frase para esse arquivo de texto.\nA frase sera: 'ola,mundo!'.\n\nEscreva: ");
                 scanf("%99s", frase);
 
                 if(!escrever_arquivo(nome_arq, frase)) {
-                    printf("Frase criada, teste ok");
+                    printf("\nFrase criada. Acessamos o disco!");
                 } else {
                     printf("Nao foi possivel adicionar a frase.");
                 }
